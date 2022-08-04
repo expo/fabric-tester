@@ -1,3 +1,4 @@
 {
-  "expo.jsEngine": "jsc"
+  "expo.jsEngine": "hermes",
+  "expo.enableFabric": true
 }

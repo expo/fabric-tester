@@ -5,6 +5,10 @@ require File.join(File.dirname(`node --print "require.resolve('@react-native-com
 require 'json'
 podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties.json'))) rescue {}
 
+# Libraries use this env flag to determine whether to add React-RCTFabric as a dependency.
+# This app is generally intended to use Fabric by default, so let's override this for convenience.
+ENV['RCT_NEW_ARCH_ENABLED'] = podfile_properties['expo.enableFabric'] ? '1' : '0'
+
 platform :ios, podfile_properties['ios.deploymentTarget'] || '12.4'
 install! 'cocoapods',
   :deterministic_uuids => false
@@ -21,7 +25,7 @@ target 'fabrictester' do
   use_react_native!(
     :path => config[:reactNativePath],
     :hermes_enabled => flags[:hermes_enabled] || podfile_properties['expo.jsEngine'] == 'hermes',
-    :fabric_enabled => flags[:fabric_enabled],
+    :fabric_enabled => flags[:fabric_enabled] || podfile_properties['expo.enableFabric'],
     # An absolute path to your application root.
     :app_path => "#{Dir.pwd}/.."
   )
