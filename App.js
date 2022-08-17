@@ -1,7 +1,7 @@
 import { Video } from 'expo-av';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
   Button,
   Image,
@@ -11,6 +11,7 @@ import {
   Text,
   View,
   ScrollView,
+  Platform,
 } from 'react-native';
 
 function randomColor() {
@@ -18,48 +19,44 @@ function randomColor() {
 }
 
 export default class App extends React.PureComponent {
-  state = {
-    reverse: false,
-    mounted: true,
-    colors: Array(3).fill(0).map(randomColor),
-  };
-
-  toggleMounted = () => {
-    this.setState((state) => ({ mounted: !state.mounted }));
-  };
-
-  randomizeColors = () => {
-    this.setState({ colors: Array(3).fill(0).map(randomColor) });
-  };
-
   render() {
-    const { reverse, mounted, colors } = this.state;
     const isFabricEnabled = global.nativeFabricUIManager != null;
 
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView>
-          <Text style={[styles.text, { marginVertical: 40 }]}>
+          <Text style={[styles.text, { marginVertical: 10 }]}>
             isFabricEnabled: {isFabricEnabled + ''}
           </Text>
 
-          <Button title={mounted ? 'Unmount view' : 'Mount view'} onPress={this.toggleMounted} />
-          <Button title="Randomize colors" onPress={this.randomizeColors} disabled={!mounted} />
-
-          {mounted && (
-            <LinearGradient
-              style={styles.gradient}
-              colors={colors}
-              end={reverse ? { x: 1.0, y: 0.5 } : { x: 0.5, y: 1.0 }}
-            />
-          )}
-
+          <LinearGradientExample />
           {/* <BlueExample /> */}
-          {/* <VideoExample /> */}
+          {Platform.OS === 'ios' && <VideoExample />}
         </ScrollView>
       </SafeAreaView>
     );
   }
+}
+
+export function LinearGradientExample() {
+  const [mounted, setMounted] = useState(true);
+  const [colors, setColors] = useState(() => Array(3).fill(0).map(randomColor));
+
+  const toggleMounted = useCallback(() => setMounted(!mounted), [mounted]);
+  const randomizeColors = useCallback(() => setColors(Array(3).fill(0).map(randomColor)), [colors]);
+
+  return (
+    <View style={styles.exampleContainer}>
+      <View style={styles.gradient}>
+        {mounted && <LinearGradient style={{ flex: 1 }} colors={colors} end={{ x: 0.5, y: 1.0 }} />}
+      </View>
+
+      <View style={styles.buttons}>
+        <Button title={mounted ? 'Unmount view' : 'Mount view'} onPress={toggleMounted} />
+        <Button title="Randomize colors" onPress={randomizeColors} disabled={!mounted} />
+      </View>
+    </View>
+  );
 }
 
 export function BlueExample() {
@@ -67,7 +64,7 @@ export function BlueExample() {
   const text = 'Hello, my container is blurring contents underneath!';
 
   return (
-    <View style={styles.blurExample}>
+    <View style={[styles.exampleContainer, styles.blurExample]}>
       <Image style={[StyleSheet.absoluteFill, styles.image]} source={{ uri }} />
       <BlurView intensity={100} style={styles.blurContainer}>
         <Text style={styles.text}>{text}</Text>
@@ -85,26 +82,43 @@ export function BlueExample() {
 export function VideoExample() {
   const video = useRef(null);
   const [status, setStatus] = useState({});
+  const [nativeControls, setNativeControls] = useState(true);
+
+  const togglePlaying = useCallback(() => {
+    if (status.isPlaying) {
+      video.current.pauseAsync();
+    } else {
+      video.current.playAsync();
+    }
+  }, [status.isPlaying]);
+
+  const toggleNativeControls = useCallback(
+    () => setNativeControls(!nativeControls),
+    [nativeControls]
+  );
+
+  const setFullscreen = useCallback(() => video.current.presentFullscreenPlayer(true), [video]);
+
   return (
-    <View style={styles.videoExample}>
+    <View style={[styles.exampleContainer, styles.videoExample]}>
       <Video
         ref={video}
         style={styles.video}
         source={{
           uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
         }}
-        useNativeControls
+        useNativeControls={nativeControls}
         resizeMode="contain"
         isLooping
         onPlaybackStatusUpdate={(status) => setStatus(() => status)}
       />
       <View style={styles.buttons}>
+        <Button title={status.isPlaying ? 'Pause' : 'Play'} onPress={togglePlaying} />
         <Button
-          title={status.isPlaying ? 'Pause' : 'Play'}
-          onPress={() =>
-            status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
-          }
+          title={nativeControls ? 'Hide controls' : 'Show controls'}
+          onPress={toggleNativeControls}
         />
+        <Button title="Open fullscreen" onPress={setFullscreen} />
       </View>
     </View>
   );
@@ -120,9 +134,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
   },
+  exampleContainer: {
+    padding: 20,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderStyle: 'solid',
+    borderColor: '#242c39',
+  },
   gradient: {
-    height: 300,
-    margin: 20,
+    height: 200,
   },
   blurExample: {
     height: 640,
@@ -145,14 +164,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   videoExample: {
-    height: 640,
-    marginTop: 64,
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
   },
   video: {
     alignSelf: 'center',
-    width: 320,
+    width: 400,
     height: 200,
   },
   buttons: {
