@@ -9,6 +9,8 @@ PODS:
     - ReactCommon
   - EXBlur (11.2.0):
     - ExpoModulesCore
+  - EXCamera (12.3.0):
+    - ExpoModulesCore
   - EXConstants (13.2.3):
     - ExpoModulesCore
   - EXFileSystem (14.1.0):
@@ -701,6 +703,7 @@ DEPENDENCIES:
   - EXApplication (from `../../../packages/expo-application/ios`)
   - EXAV (from `../../../packages/expo-av/ios`)
   - EXBlur (from `../../../packages/expo-blur/ios`)
+  - EXCamera (from `../../../packages/expo-camera/ios`)
   - EXConstants (from `../../../packages/expo-constants/ios`)
   - EXFileSystem (from `../../../packages/expo-file-system/ios`)
   - EXFont (from `../../../packages/expo-font/ios`)
@@ -766,6 +769,8 @@ EXTERNAL SOURCES:
     :path: "../../../packages/expo-av/ios"
   EXBlur:
     :path: "../../../packages/expo-blur/ios"
+  EXCamera:
+    :path: "../../../packages/expo-camera/ios"
   EXConstants:
     :path: "../../../packages/expo-constants/ios"
   EXFileSystem:
@@ -861,6 +866,7 @@ SPEC CHECKSUMS:
   EXApplication: e418d737a036e788510f2c4ad6c10a7d54d18586
   EXAV: 8e97d63b798d96e937269b157a1a75eec0b47bbe
   EXBlur: a3556f992ca1cdf117f0e19d6e4775f3406e77c3
+  EXCamera: e258792e30234cd252968f8306ebb7799e10011f
   EXConstants: 75c40827af38bd6bfcf69f880a5b45037eeff9c9
   EXFileSystem: 5733242b9545bfebb5584769083de35d21578853
   EXFont: a5d80bd9b3452b2d5abbce2487da89b0150e6487

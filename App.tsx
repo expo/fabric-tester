@@ -1,5 +1,6 @@
 import { Video } from 'expo-av';
 import { BlurView } from 'expo-blur';
+import { Camera, CameraType } from 'expo-camera';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useCallback, useRef, useState } from 'react';
 import {
@@ -32,6 +33,7 @@ export default class App extends React.PureComponent {
           <LinearGradientExample />
           {/* <BlueExample /> */}
           {Platform.OS === 'ios' && <VideoExample />}
+          {Platform.OS === 'ios' && <CameraExample />}
         </ScrollView>
       </SafeAreaView>
     );
@@ -124,6 +126,40 @@ export function VideoExample() {
   );
 }
 
+export function CameraExample() {
+  const camera = useRef<Camera>(null);
+  const [cameraType, setCameraType] = useState(CameraType.back);
+
+  const takePicture = useCallback(async () => {
+    const result = await camera.current.takePictureAsync({
+      quality: 0.7,
+    });
+    alert(JSON.stringify(result, null, 2));
+  }, []);
+
+  const reverse = useCallback(() => {
+    setCameraType(cameraType === CameraType.back ? CameraType.front : CameraType.back);
+  }, [cameraType]);
+
+  const onCameraReady = useCallback(() => {
+    console.log('Camera is ready!');
+  }, []);
+
+  return (
+    <View style={styles.exampleContainer}>
+      <Camera ref={camera} style={styles.camera} type={cameraType} onCameraReady={onCameraReady} />
+
+      <View style={styles.buttons}>
+        <Button title="Take picture" onPress={takePicture} />
+        <Button
+          title={cameraType === CameraType.back ? 'Switch to front' : 'Switch to back'}
+          onPress={reverse}
+        />
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -175,5 +211,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  camera: {
+    height: 500,
   },
 });
