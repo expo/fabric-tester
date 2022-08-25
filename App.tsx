@@ -12,7 +12,6 @@ import {
   Text,
   View,
   ScrollView,
-  Platform,
 } from 'react-native';
 
 function randomColor() {
@@ -32,7 +31,7 @@ export default class App extends React.PureComponent {
 
           <LinearGradientExample />
           {/* <BlueExample /> */}
-          {Platform.OS === 'ios' && <VideoExample />}
+          <VideoExample />
           <CameraExample />
         </ScrollView>
       </SafeAreaView>
