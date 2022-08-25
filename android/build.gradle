@@ -55,5 +55,10 @@ allprojects {
             }
         }
         maven { url 'https://www.jitpack.io' }
+
+        maven {
+            // expo-camera bundles a custom com.google.android:cameraview
+            url "$rootDir/../../../packages/expo-camera/android/maven"
+        }
     }
 }

@@ -33,7 +33,7 @@ export default class App extends React.PureComponent {
           <LinearGradientExample />
           {/* <BlueExample /> */}
           {Platform.OS === 'ios' && <VideoExample />}
-          {Platform.OS === 'ios' && <CameraExample />}
+          <CameraExample />
         </ScrollView>
       </SafeAreaView>
     );
@@ -127,6 +127,7 @@ export function VideoExample() {
 }
 
 export function CameraExample() {
+  const [camerPermissionStatus, requestCameraPermission] = Camera.useCameraPermissions();
   const camera = useRef<Camera>(null);
   const [cameraType, setCameraType] = useState(CameraType.back);
 
@@ -144,6 +145,11 @@ export function CameraExample() {
   const onCameraReady = useCallback(() => {
     console.log('Camera is ready!');
   }, []);
+
+  if (camerPermissionStatus) {
+    requestCameraPermission();
+    return null;
+  }
 
   return (
     <View style={styles.exampleContainer}>
