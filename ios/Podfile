@@ -9,7 +9,7 @@ podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties
 # This app is generally intended to use Fabric by default, so let's override this for convenience.
 ENV['RCT_NEW_ARCH_ENABLED'] = podfile_properties['expo.enableFabric'] ? '1' : '0'
 
-platform :ios, podfile_properties['ios.deploymentTarget'] || '12.4'
+platform :ios, podfile_properties['ios.deploymentTarget'] || '13.0'
 install! 'cocoapods',
   :deterministic_uuids => false
 
