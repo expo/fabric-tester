@@ -12,6 +12,7 @@ import {
   Text,
   View,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 
 function randomColor() {
@@ -126,7 +127,7 @@ export function VideoExample() {
 }
 
 export function CameraExample() {
-  const [camerPermissionStatus, requestCameraPermission] = Camera.useCameraPermissions();
+  const [cameraPermissionStatus, requestCameraPermission] = Camera.useCameraPermissions();
   const camera = useRef<Camera>(null);
   const [cameraType, setCameraType] = useState(CameraType.back);
 
@@ -145,14 +146,18 @@ export function CameraExample() {
     console.log('Camera is ready!');
   }, []);
 
-  if (camerPermissionStatus) {
+  if (!cameraPermissionStatus) {
     requestCameraPermission();
     return null;
   }
 
   return (
     <View style={styles.exampleContainer}>
-      <Camera ref={camera} style={styles.camera} type={cameraType} onCameraReady={onCameraReady} />
+      <Camera ref={camera} style={styles.camera} type={cameraType} onCameraReady={onCameraReady}>
+        <View style={styles.cameraShutterButtonContainer}>
+          <TouchableOpacity style={styles.cameraShutterButton} onPress={takePicture} />
+        </View>
+      </Camera>
 
       <View style={styles.buttons}>
         <Button title="Take picture" onPress={takePicture} />
@@ -219,5 +224,22 @@ const styles = StyleSheet.create({
   },
   camera: {
     height: 500,
+    backgroundColor: 'red',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  cameraShutterButtonContainer: {
+    width: 70,
+    height: 70,
+    margin: 20,
+    padding: 3,
+    borderRadius: 35,
+    borderWidth: 4,
+    borderColor: '#fff9',
+  },
+  cameraShutterButton: {
+    flex: 1,
+    borderRadius: 35,
+    backgroundColor: '#fff',
   },
 });
