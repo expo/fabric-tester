@@ -5,8 +5,7 @@ PODS:
     - ExpoModulesCore
   - EXAV (12.0.2):
     - ExpoModulesCore
-    - React-runtimeexecutor
-    - ReactCommon
+    - ReactCommon/turbomodule/core
   - EXBlur (11.2.0):
     - ExpoModulesCore
   - EXCamera (12.3.0):
@@ -653,25 +652,6 @@ PODS:
   - React-rncore (0.69.5)
   - React-runtimeexecutor (0.69.5):
     - React-jsi (= 0.69.5)
-  - ReactCommon (0.69.5):
-    - React-logger (= 0.69.5)
-    - ReactCommon/react_debug_core (= 0.69.5)
-    - ReactCommon/turbomodule (= 0.69.5)
-  - ReactCommon/react_debug_core (0.69.5):
-    - React-logger (= 0.69.5)
-  - ReactCommon/turbomodule (0.69.5):
-    - DoubleConversion
-    - glog
-    - RCT-Folly (= 2021.06.28.00-v2)
-    - React-bridging (= 0.69.5)
-    - React-callinvoker (= 0.69.5)
-    - React-Core (= 0.69.5)
-    - React-cxxreact (= 0.69.5)
-    - React-jsi (= 0.69.5)
-    - React-logger (= 0.69.5)
-    - React-perflogger (= 0.69.5)
-    - ReactCommon/turbomodule/core (= 0.69.5)
-    - ReactCommon/turbomodule/samples (= 0.69.5)
   - ReactCommon/turbomodule/core (0.69.5):
     - DoubleConversion
     - glog
@@ -683,18 +663,6 @@ PODS:
     - React-jsi (= 0.69.5)
     - React-logger (= 0.69.5)
     - React-perflogger (= 0.69.5)
-  - ReactCommon/turbomodule/samples (0.69.5):
-    - DoubleConversion
-    - glog
-    - RCT-Folly (= 2021.06.28.00-v2)
-    - React-bridging (= 0.69.5)
-    - React-callinvoker (= 0.69.5)
-    - React-Core (= 0.69.5)
-    - React-cxxreact (= 0.69.5)
-    - React-jsi (= 0.69.5)
-    - React-logger (= 0.69.5)
-    - React-perflogger (= 0.69.5)
-    - ReactCommon/turbomodule/core (= 0.69.5)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -863,18 +831,18 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
-  EXApplication: e418d737a036e788510f2c4ad6c10a7d54d18586
-  EXAV: 8e97d63b798d96e937269b157a1a75eec0b47bbe
-  EXBlur: a3556f992ca1cdf117f0e19d6e4775f3406e77c3
-  EXCamera: e258792e30234cd252968f8306ebb7799e10011f
-  EXConstants: 75c40827af38bd6bfcf69f880a5b45037eeff9c9
-  EXFileSystem: 5733242b9545bfebb5584769083de35d21578853
-  EXFont: a5d80bd9b3452b2d5abbce2487da89b0150e6487
-  Expo: 2e971038053b3bb72a7c603ebc4f564bc30be4d2
-  ExpoKeepAwake: 8b47e5358d54ea4922b630a74f2acb026ab7a28b
-  ExpoLinearGradient: 1a3af07c6dab3c612967a294836df9ae717431df
-  ExpoModulesCore: 223e792f2f0c9e1ed203f568914422c6d21074a5
-  EXSplashScreen: 1415b25a8f0126cedfcae7868f61e7198b0866c8
+  EXApplication: 38f8f934e5790c732e802298ec12f160c40a741d
+  EXAV: 59b82f29ea94dd8d8d4efcef7335c6c014795578
+  EXBlur: 8290c5a7f29edc13121a39b9b3f60cc23f7cb985
+  EXCamera: e690e3dda9016fc0b4c18daa5c85a633f4536970
+  EXConstants: 4fdacf5b5ba37eaaeec439c487eb47d12418bf24
+  EXFileSystem: b2b6629924e5b4b6f870c05af23c2c7a4551acc0
+  EXFont: a83065d483208782d16aa8b72fa094a410d968cd
+  Expo: f35ce9004f13fe930476bd8e667eeb170166ca4e
+  ExpoKeepAwake: a97c88014e55d903a72f049ca2c01aeb7ed387f1
+  ExpoLinearGradient: 91c81d92f85b422607306ad0f0aa48de755bb601
+  ExpoModulesCore: 4a2f124e3a96388cb9e73c31ad6e54c1261d30d1
+  EXSplashScreen: 509588c153f440cab2ce5a493ace313d867fb7e7
   FBLazyVector: 0045cf98ca4a48af3bf7108d85b1c243740fa289
   FBReactNativeSpec: 0cb19e6ade516c810ab56074bcf573d7977315af
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
@@ -914,6 +882,6 @@ SPEC CHECKSUMS:
   ReactCommon: ab1003b81be740fecd82509c370a45b1a7dda0c1
   Yoga: c2b1f2494060865ac1f27e49639e72371b1205fa
 
-PODFILE CHECKSUM: 5297312955a28fdef88b4b99ed359cb32ca38ed8
+PODFILE CHECKSUM: 906140a0b44435ae1b894ba01794ef47e4e11e2a
 
 COCOAPODS: 1.11.2
