@@ -841,7 +841,7 @@ SPEC CHECKSUMS:
   Expo: f35ce9004f13fe930476bd8e667eeb170166ca4e
   ExpoKeepAwake: a97c88014e55d903a72f049ca2c01aeb7ed387f1
   ExpoLinearGradient: 91c81d92f85b422607306ad0f0aa48de755bb601
-  ExpoModulesCore: 4a2f124e3a96388cb9e73c31ad6e54c1261d30d1
+  ExpoModulesCore: bf287db43776ec5997d5b36c67f7acc6fd272a09
   EXSplashScreen: 509588c153f440cab2ce5a493ace313d867fb7e7
   FBLazyVector: 0045cf98ca4a48af3bf7108d85b1c243740fa289
   FBReactNativeSpec: 0cb19e6ade516c810ab56074bcf573d7977315af
